@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>迷因籤詩抽獎機</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      background-color: #f9f2e7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #b52e2e;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #e63946;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .fortune {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: white;
+      border: 2px dashed #b52e2e;
+      border-radius: 15px;
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+    }
+    .fortune h2 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎴 迷因籤詩抽獎 🎴</h1>
+  <button onclick="drawFortune()">抽一張籤詩</button>
+  <div class="fortune" id="fortuneDisplay">
+    <p>點上方按鈕抽籤 👆</p>
+  </div>
+
+  <script>
+    const fortunes = [
+      {
+        title: "第3籤 ｜中等籤",
+        content: "🧠「今天會遇到好事，但不是你，是別人。」",
+        result: "🎁 安慰獎：一顆社會毒打糖果"
+      },
+      {
+        title: "第9籤｜爆笑爛籤",
+        content: "💔「戀愛像算命，信了你就輸了。」",
+        result: "🎁 沒中，但你至少誠實面對自己"
+      },
+      {
+        title: "第14籤｜偽上籤",
+        content: "✨「你的氣場是強的，但 Wi-Fi 比你穩。」",
+        result: "🎁 小獎：換來一秒歡笑的權利"
+      }
+    ];
+
+    function drawFortune() {
+      const randomIndex = Math.floor(Math.random() * fortunes.length);
+      const fortune = fortunes[randomIndex];
+      const display = document.getElementById("fortuneDisplay");
+      display.innerHTML = `
+        <h2>${fortune.title}</h2>
+        <p>${fortune.content}</p>
+        <p>${fortune.result}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
