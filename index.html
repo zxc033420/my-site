@@ -7,21 +7,26 @@
   <style>
     body {
       font-family: "Arial", sans-serif;
-      background-color: #f3f3f3;
+      background-color: #f0e6f7;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
+      background-image: url("/mnt/data/有迷有logo finallll.PNG");
+      background-size: 150px;
+      background-repeat: no-repeat;
+      background-position: top 20px center;
+      padding-top: 180px;
     }
     h1 {
-      color: #b52e2e;
+      color: #5e2b97;
     }
     button {
       padding: 12px 24px;
       font-size: 18px;
-      background-color: #e63946;
+      background-color: #8c42e3;
       color: white;
       border: none;
       border-radius: 10px;
@@ -36,19 +41,20 @@
       margin-top: 30px;
       padding: 20px;
       background-color: white;
-      border: 2px dashed #b52e2e;
+      border: 2px dashed #5e2b97;
       border-radius: 15px;
       width: 80%;
       max-width: 500px;
       text-align: center;
       font-size: 20px;
+      animation: pop 0.5s ease-out;
     }
     .spinner {
       margin-top: 20px;
       width: 100px;
       height: 100px;
       border: 8px solid #f3f3f3;
-      border-top: 8px solid #e63946;
+      border-top: 8px solid #8c42e3;
       border-radius: 50%;
       animation: spin 2s linear infinite;
       display: none;
@@ -56,6 +62,16 @@
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(1080deg); }
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .slogan {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #5e2b97;
+      font-style: italic;
     }
   </style>
 </head>
@@ -67,6 +83,9 @@
     <p>按下按鈕開始抽獎！</p>
   </div>
 
+  <!-- 中獎音效 -->
+  <audio id="winSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-notification-2018.mp3"></audio>
+
   <script>
     let prizes = [
       "打火機",
@@ -75,10 +94,19 @@
       "洋芋片"
     ];
 
+    const slogans = [
+      "👻 迷信退散，才是今天的好運氣！",
+      "🔮 抽中不是命運，是你手氣好！",
+      "✨ 祛魅一刻，笑對玄學～",
+      "🌕 人旺不是因為水逆結束，是你自帶主角光環！",
+      "🎭 別信水晶球，信自己的選擇！"
+    ];
+
     function startDraw() {
       const spinner = document.getElementById("spinner");
       const resultBox = document.getElementById("resultBox");
       const button = document.getElementById("drawBtn");
+      const winSound = document.getElementById("winSound");
 
       if (prizes.length === 0) {
         resultBox.innerHTML = "🎁 所有獎品已抽完，感謝參與！";
@@ -93,8 +121,10 @@
       setTimeout(() => {
         const index = Math.floor(Math.random() * prizes.length);
         const prize = prizes.splice(index, 1)[0];
-        resultBox.innerHTML = `🎊 恭喜你抽中：<strong>${prize}</strong>！`;
+        const slogan = slogans[Math.floor(Math.random() * slogans.length)];
+        resultBox.innerHTML = `🎊 恭喜你抽中：<strong>${prize}</strong>！<div class="slogan">${slogan}</div>`;
         spinner.style.display = "none";
+        winSound.play();
 
         if (prizes.length === 0) {
           button.innerText = "已抽完";
